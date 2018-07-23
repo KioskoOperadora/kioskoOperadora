@@ -40,8 +40,8 @@ namespace kioskotem
                    
                     if (differenceInDays >= 90 )
                     {
-                       // Response.Redirect("/configurar/Contra.aspx");
-                        Response.Redirect("http://www.operadoramx.net/operadora/Pass.aspx");
+                        Response.Redirect("../Pass.aspx");
+                       // Response.Redirect("http://www.operadoramx.net/operadora/Pass.aspx");
                        // ScriptManager.RegisterStartupScript(this, typeof(string), "alerta", "alert('Necesita actualizar su contraseña por seguridad');", true);
                     }
 
