@@ -162,6 +162,7 @@
     <Content Include="nomina\sa.aspx" />
     <Content Include="nomina\simple.aspx" />
     <Content Include="nomina\sindicato.aspx" />
+    <Content Include="nomina\timbradoTMP.aspx" />
     <Content Include="nomina\timbrado.aspx" />
     <Content Include="pages\calendar.html" />
     <Content Include="pages\charts\chartjs.html" />
@@ -1223,6 +1224,13 @@
     <Compile Include="nomina\sindicato.aspx.designer.cs">
       <DependentUpon>sindicato.aspx</DependentUpon>
     </Compile>
+    <Compile Include="nomina\timbradoTMP.aspx.cs">
+      <DependentUpon>timbradoTMP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="nomina\timbradoTMP.aspx.designer.cs">
+      <DependentUpon>timbradoTMP.aspx</DependentUpon>
+    </Compile>
     <Compile Include="nomina\timbrado.aspx.cs">
       <DependentUpon>timbrado.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1442,7 +1450,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>8540</DevelopmentServerPort>
+          <DevelopmentServerPort>19197</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

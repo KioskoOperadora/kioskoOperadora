@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/home.Master" AutoEventWireup="true" CodeBehind="comprobante.aspx.cs" Inherits="kioskotem.nomina.comprobante" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/home.Master" AutoEventWireup="true" CodeBehind="timbradoTMP.aspx.cs" Inherits="kioskotem.nomina.timbradoTMP" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -6,19 +6,19 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="content-header">
       <h1>
-        Comprobantes de pago de nomina
+        Recibo Timbrado (Nomina A)
         <small><asp:Label ID="lblnombre" runat="server" Text=""></asp:Label></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="../inicio/inicio.aspx"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <%--<li><a href="#">Bienvenido</a></li>--%>
-        <li class="active">Comprobante nomina</li>
+        <li class="active">Recibo timbrado</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" ></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 
@@ -48,18 +48,12 @@
                                         <asp:Label ID="lblidfactura" runat="server" Text='<%# Bind("iIdPago") %>' Visible="false" ></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
-                                <asp:TemplateField HeaderText="">
+                              <%--<asp:TemplateField HeaderText="">
                                     <ItemTemplate>
-                                        <asp:Label ID="lbldpagosa" runat="server" Text='<%# Bind("dpagosa") %>' Visible="false" ></asp:Label>
+                                        <asp:Label ID="lblb" runat="server" Text='<%# Bind("pagob") %>' Visible="false" ></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lbldpagosin" runat="server" Text='<%# Bind("dpagosin") %>' Visible="false" ></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
+                                --%>
                                 
                                 <asp:TemplateField HeaderText="Fecha">
                                     <ItemTemplate>
@@ -67,32 +61,29 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
-                                <asp:TemplateField HeaderText="Importe SA">
+                                <asp:TemplateField HeaderText="Importe">
                                     <ItemTemplate>
-                                        <asp:Label Width="80px" style=" text-align:right;" ID="lblimporte" runat="server" Text='<%# Bind("importe") %>'  Visible="true" ></asp:Label>
+                                        <asp:Label Width="70px" style=" text-align:right;" ID="lblimporte" runat="server" Text='<%# Bind("importesa") %>'  Visible="true" ></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Importe Asi">
+                                 <asp:TemplateField >
                                     <ItemTemplate>
-                                        <asp:Label Width="80px" style=" text-align:right;" ID="lblimportesin" runat="server" Text='<%# Bind("importesin") %>'  Visible="true" ></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                              <asp:TemplateField >
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblb" runat="server" Text='<%# Bind("nombrenomina") %>' Visible="false" ></asp:Label>
+                                        <asp:Label ID="lblbe" runat="server" Text='<%# Bind("nombrenomina") %>' Visible="false" ></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
-                                <asp:CommandField ButtonType="Image" HeaderText="SA" 
+                                
+                                
+                                <asp:CommandField ButtonType="Image" 
                                     SelectImageUrl="../imagenes/pdf2.png" 
                                     ShowSelectButton="True">
-                                <HeaderStyle Width="40px" />
+                                <HeaderStyle Width="50px" />
                                 </asp:CommandField>
                                           
-                                <asp:CommandField ButtonType="Image" HeaderText="Asi" 
-                                     DeleteImageUrl = "../imagenes/pdf2.png" 
+                                <asp:CommandField ButtonType="Image"
+                                     DeleteImageUrl = "../imagenes/xml.png" 
                                       ShowDeleteButton ="true"> 
-                                <HeaderStyle Width="40px" />
+                                <HeaderStyle Width="50px" />
                                 </asp:CommandField>
                                 
                                           

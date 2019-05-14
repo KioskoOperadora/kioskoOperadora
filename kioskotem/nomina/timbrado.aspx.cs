@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using System.Data;
-using kioskotem.wcfoperadora ;
+using kioskotem.wcfoperadora;
 
 
 namespace kioskotem.nomina
@@ -38,7 +38,7 @@ namespace kioskotem.nomina
                 if (e.CommandName == "Select")
                 {
                     //int id = Convert.ToInt32(e.CommandArgument);
-                    
+
 
                     //DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[id].FindControl("lblfecha")).Text);
 
@@ -84,7 +84,7 @@ namespace kioskotem.nomina
                         path = Server.MapPath("../recibostOPERADORAMX/") + "\\" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.pdf";
                     }
 
-                    
+
                     String path2 = "../recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.pdf";
 
 
@@ -102,8 +102,8 @@ namespace kioskotem.nomina
                         ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('No se encuentra el archivo ');", true);
 
                     }
-                    
-                    
+
+
                 }
                 if (e.CommandName == "Delete")
                 {
@@ -184,12 +184,12 @@ namespace kioskotem.nomina
             }
             catch (Exception EX)
             {
-                //clFunciones.JQMensaje(this, EX.Message.Replace("'", ""), TipoMensaje.Error);
+                clFunciones.JQMensaje(this, EX.Message.Replace("'", ""), TipoMensaje.Error);
             }
         }
 
 
-        
+
         protected void dtgnominas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dtgnominas.DataSource = (DataSet)Session["dsPagos"];
@@ -207,15 +207,16 @@ namespace kioskotem.nomina
 
         private void cargar_grid()
         {
-            IsvcOperadoraMxClient Manejador = new IsvcOperadoraMxClient(); 
+            IsvcOperadoraMxClient Manejador = new IsvcOperadoraMxClient();
 
 
             DataSet dsEmpresas = new DataSet();
             dsEmpresas.Tables.Add("Tabla");
             dsEmpresas.Tables[0].Columns.Add("iIdPago");
-            dsEmpresas.Tables[0].Columns.Add("pagob");
             dsEmpresas.Tables[0].Columns.Add("Fecha");
-            dsEmpresas.Tables[0].Columns.Add("importe");
+            dsEmpresas.Tables[0].Columns.Add("importesa");
+            dsEmpresas.Tables[0].Columns.Add("nombrenomina");
+
 
             DateTime inicio = DateTime.Parse(dtpinicio.SelectedDate.ToString());
             DateTime final = DateTime.Parse(dtpfinal.SelectedDate.ToString());
@@ -233,9 +234,10 @@ namespace kioskotem.nomina
                     for (int x = 0; x < dtEmpresas.Rows.Count; x++)
                     {
                         dsEmpresas.Tables[0].Rows.Add(dtEmpresas.Rows[x]["iIdPago"],
-                                                        dtEmpresas.Rows[x]["nombrenomina"],
-                                                        DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString()).ToShortDateString(),
-                                                        dtEmpresas.Rows[x]["importesa"]);
+                                                        // DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString()).ToShortDateString(),
+                                                         DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString().Remove(18)),
+                                                        dtEmpresas.Rows[x]["importesa"],
+                                                         dtEmpresas.Rows[x]["nombrenomina"]);
 
 
 

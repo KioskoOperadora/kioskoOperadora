@@ -68,6 +68,7 @@ namespace kioskotem
                                         Session["objusuario"] = dtusuario;
                                         Session["idusuario"] = dtusuario.Rows[0]["iIdUsuarioK"].ToString();
                                         Session["idcodigo"] = dtusuario.Rows[0]["codigo"].ToString();
+                                        Session["inicio"] = "1";
                                         Response.Redirect("inicio/inicio.aspx");
 
                                

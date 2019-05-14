@@ -31,7 +31,7 @@ namespace kioskotem
                 String tmp = usuario.Rows[0]["fechapass"].ToString();
                 if (!tmp.Equals(""))
                 {
-                    DateTime passDate = Convert.ToDateTime(tmp);
+                    DateTime passDate = Convert.ToDateTime(tmp.Remove(18));
                     TimeSpan ts = thisDay -passDate;
 
                     // Difference in days.  
@@ -40,9 +40,13 @@ namespace kioskotem
                    
                     if (differenceInDays >= 90 )
                     {
-                        Response.Redirect("../Pass.aspx");
-                       // Response.Redirect("http://www.operadoramx.net/operadora/Pass.aspx");
-                       // ScriptManager.RegisterStartupScript(this, typeof(string), "alerta", "alert('Necesita actualizar su contraseña por seguridad');", true);
+                        if (Session["inicio"].ToString() == "1")
+                        {
+                            Response.Redirect("../Pass.aspx");
+                            // Response.Redirect("http://www.operadoramx.net/operadora/Pass.aspx");
+                            // ScriptManager.RegisterStartupScript(this, typeof(string), "alerta", "alert('Necesita actualizar su contraseña por seguridad');", true);
+                        }
+                        
                     }
 
                 }

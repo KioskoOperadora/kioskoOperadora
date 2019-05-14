@@ -6,25 +6,17 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using System.Data;
-using kioskotem.wcfoperadora ;
+using kioskotem.wcfoperadora;
 
 
 namespace kioskotem.nomina
 {
-    public partial class sindicato : System.Web.UI.Page
+    public partial class timbradoTMP : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Session["objusuario"] == null)
-            {
-                Session.Abandon();
-                Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
-                Response.Redirect("../default.aspx");
-            }
             if (!IsPostBack)
             {
-
 
                 dtpinicio.SelectedDate = DateTime.Parse("01/" + DateTime.Now.Month + "/" + DateTime.Now.Year);
                 dtpfinal.SelectedDate = DateTime.Parse(DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year);
@@ -33,6 +25,7 @@ namespace kioskotem.nomina
             }
 
         }
+
         protected void dtgnominas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -47,93 +40,92 @@ namespace kioskotem.nomina
                     int id = Convert.ToInt32(e.CommandArgument);
 
 
-                    //DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[ id].FindControl("lblfecha")).Text);
-                    string sa = ((Label)dtgnominas.Rows[id].FindControl("lbldpagosa")).Text;
-                    string carpetab = ((Label)dtgnominas.Rows[id].FindControl("lblb")).Text;
+                    DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[id].FindControl("lblfecha")).Text);
+                    string carpetab = ((Label)dtgnominas.Rows[id].FindControl("lblbe")).Text;
                     string path;
-
 
                     if (carpetab != "")
                     {
-                        Session["ruta"] = "pagosnOPERADORAMX/"+carpetab+"/" + sa + ".pdf";
-                        path = Server.MapPath("../pagosnOPERADORAMX/") +carpetab+ "\\" + sa + ".pdf";
-                        String path2 = "../pagosnOPERADORAMX/" + carpetab + "/" + sa + ".pdf";
+
+                        Session["ruta"] = "recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.pdf";
+                        Session["ruta2"] = "recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.xml";
+                        path = Server.MapPath("../recibostOPERADORAMX/" + carpetab) + "\\" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.pdf";
+                        String path2 = "../recibostOPERADORAMX/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
                     }
                     else
                     {
-                        Session["ruta"] = "pagosnOPERADORAMX/" + sa + ".pdf";
-                        path = Server.MapPath("../pagosnOPERADORAMX") + "\\" + sa + ".pdf";
-                        String path2 = "../pagosnOPERADORAMX/" + sa + ".pdf";
-
+                        Session["ruta"] = "recibostOPERADORAMX/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.pdf";
+                        Session["ruta2"] = "recibostOPERADORAMX/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.xml";
+                        path = Server.MapPath("../recibostOPERADORAMX/") + "\\" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.pdf";
+                        String path2 = "../recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.xml";
                     }
-                    
 
-                    Session["archivo"] = sa + ".pdf";
+                    Session["archivo"] = fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.xml";
+                    Session["archivoxml"] = fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "T.xml";
                     System.IO.FileInfo toDownload = new System.IO.FileInfo(path);
                     if (toDownload.Exists)
                     {
-                        Response.Redirect("../descargar.aspx", false);
                         //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + path2 + "','_blank')", true);
-
+                        Response.Redirect("../descargar.aspx", false);
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('No se encuentra el archivo ');", true);
 
                     }
-
+                    
                 }
                 if (e.CommandName == "Delete")
                 {
                     int id = Convert.ToInt32(e.CommandArgument);
 
+                    //Session["xml"] = "1";
 
-                    //DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[id].FindControl("lblfecha")).Text);
-                    string sindicato = ((Label)dtgnominas.Rows[id].FindControl("lbldpagosin")).Text;
-                    string carpetab = ((Label)dtgnominas.Rows[id].FindControl("lblb")).Text;
-                    String path;
+                    DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[id].FindControl("lblfecha")).Text);
+                    string carpetab = ((Label)dtgnominas.Rows[id].FindControl("lblb2")).Text;
+                    string path;
 
                     if (carpetab != "")
                     {
-                        Session["ruta"] = "pagosnOPERADORAMX/" +carpetab +"/"+ sindicato + ".xml";
-                        path = Server.MapPath("../pagosnOPERADORAMX/") +carpetab+ "\\" + sindicato + ".xml";
-                        String path2 = "../pagosnOPERADORAMX/" +carpetab+"/"+ sindicato + ".xml";
-                        
+                        Session["ruta"] = "recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.pdf";
+                        Session["ruta2"] = "recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
+                        path = Server.MapPath("../recibostOPERADORAMX/" + carpetab) + "\\" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.pdf";
+                        String path2 = "../recibostOPERADORAMX/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
+
                     }
                     else
                     {
+                        Session["ruta"] = "recibostOPERADORAMX/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.pdf";
+                        Session["ruta2"] = "recibostOPERADORAMX/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
+                        path = Server.MapPath("../recibostOPERADORAMX/") + "\\" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.pdf";
+                        String path2 = "../recibostOPERADORAMX/" + carpetab + "/" + fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
 
-                        Session["ruta"] = "pagosnOPERADORAMX/" + sindicato + ".xml";
-                        path = Server.MapPath("../pagosnOPERADORAMX") + "\\" + sindicato + ".xml";
-                        String path2 = "../pagosnOPERADORAMX/" + sindicato + ".xml";
-                        //Session["archivo"] = sindicato + ".xml";
                     }
 
-                    Session["archivo"] = sindicato + ".xml";
-
+                    Session["archivo"] = fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
+                    Session["archivoxml"] = fecha.Month.ToString("00") + fecha.Year.ToString() + Session["idcodigo"].ToString() + "TD.xml";
                     System.IO.FileInfo toDownload = new System.IO.FileInfo(path);
                     if (toDownload.Exists)
                     {
-                        Response.Redirect("../descargar.aspx");
                         //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + path2 + "','_blank')", true);
+                        Response.Redirect("../descargar.aspx");
+
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, typeof(string), "alert", "alert('No se encuentra el archivo ');", true);
 
                     }
-
                 }
             }
             catch (Exception EX)
             {
-                clFunciones.JQMensaje(this, EX.Message.Replace("'", ""), TipoMensaje.Error);
+                //clFunciones.JQMensaje(this, EX.Message.Replace("'", ""), TipoMensaje.Error);
             }
         }
 
 
         
-
         protected void dtgnominas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dtgnominas.DataSource = (DataSet)Session["dsPagos"];
@@ -157,10 +149,9 @@ namespace kioskotem.nomina
             DataSet dsEmpresas = new DataSet();
             dsEmpresas.Tables.Add("Tabla");
             dsEmpresas.Tables[0].Columns.Add("iIdPago");
-            dsEmpresas.Tables[0].Columns.Add("dpagosa");
-            dsEmpresas.Tables[0].Columns.Add("dpagosin");
+            //dsEmpresas.Tables[0].Columns.Add("pagob");
             dsEmpresas.Tables[0].Columns.Add("Fecha");
-            dsEmpresas.Tables[0].Columns.Add("importe");
+            dsEmpresas.Tables[0].Columns.Add("importesa");
             dsEmpresas.Tables[0].Columns.Add("nombrenomina");
 
             DateTime inicio = DateTime.Parse(dtpinicio.SelectedDate.ToString());
@@ -179,11 +170,10 @@ namespace kioskotem.nomina
                     for (int x = 0; x < dtEmpresas.Rows.Count; x++)
                     {
                         dsEmpresas.Tables[0].Rows.Add(dtEmpresas.Rows[x]["iIdPago"],
-                                                        dtEmpresas.Rows[x]["dasimiladopdf"],
-                                                        dtEmpresas.Rows[x]["dasimiladoxml"],
-                                                       DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString().Remove(18)),
+                                                        //dtEmpresas.Rows[x]["pagob"],
+                                                        DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString().Remove(18)),
                                                         //DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString()).ToShortDateString(),
-                                                        dtEmpresas.Rows[x]["importeasi"],
+                                                        dtEmpresas.Rows[x]["importesa"],
                                                         dtEmpresas.Rows[x]["nombrenomina"]);
 
 
@@ -196,7 +186,7 @@ namespace kioskotem.nomina
                 }
                 else
                 {
-                    Session["dsFacturas"] = null;
+                    Session["dsPagos"] = null;
                     dtgnominas.DataSource = null;
                     lblmensaje.Text = "Sin Pagos Recientes";
 

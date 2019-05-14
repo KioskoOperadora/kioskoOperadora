@@ -33,7 +33,7 @@ namespace kioskotem
 
 
             string enviosoporte = EnviarCorreos.envioSoporte(usuario, nombre, descripcion , correo);
-            string asuntoConfirmar = "Contacto Soporte del usuario"+ nombre;
+            string asuntoConfirmar = "Contacto Soporte del usuario "+ nombre;
 
             if (EnviarCorreos.enviarCorreo("soporte@mbcgroup.mx", enviosoporte, asuntoConfirmar) == false)
             {

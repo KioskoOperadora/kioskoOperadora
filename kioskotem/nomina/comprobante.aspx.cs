@@ -44,16 +44,23 @@ namespace kioskotem.nomina
                 if (e.CommandName == "Select")
                 {
                     int id = Convert.ToInt32(e.CommandArgument);
-
-
-                    //DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[id].FindControl("lblfecha")).Text);
                     string sa = ((Label)dtgnominas.Rows[id].FindControl("lbldpagosa")).Text;
+                    string carpetab = ((Label)dtgnominas.Rows[id].FindControl("lblb")).Text;
+                    String path;
 
-                    Session["ruta"] = "pagosnOPERADORAMX/" + sa + ".pdf";
-                    String path = Server.MapPath("../pagosnOPERADORAMX") + "\\" + sa + ".pdf";
+                    if (carpetab != "")
+                    {
+                        Session["ruta"] = "pagosnOPERADORAMX/" +carpetab+"/"+ sa + ".pdf";
+                        path = Server.MapPath("../pagosnOPERADORAMX/")+carpetab+ "\\" + sa + ".pdf";
+                        String path2 = "../pagosnOPERADORAMX/"+carpetab+"/" + sa + ".pdf";
+                    }
+                    else
+                    {
+                        Session["ruta"] = "pagosnOPERADORAMX/" + sa + ".pdf";
+                        path = Server.MapPath("../pagosnOPERADORAMX") + "\\" + sa + ".pdf";
 
-                    String path2 = "../pagosnOPERADORAMX/" + sa + ".pdf";
-
+                        String path2 = "../pagosnOPERADORAMX/" + sa + ".pdf";
+                    }
                     Session["archivo"] = sa + ".pdf";
                     System.IO.FileInfo toDownload = new System.IO.FileInfo(path);
                     if (toDownload.Exists)
@@ -72,17 +79,25 @@ namespace kioskotem.nomina
                 if (e.CommandName == "Delete")
                 {
                     int id = Convert.ToInt32(e.CommandArgument);
-
-
-                    //DateTime fecha = DateTime.Parse(((Label)dtgnominas.Rows[id].FindControl("lblfecha")).Text);
                     string sindicato = ((Label)dtgnominas.Rows[id].FindControl("lbldpagosin")).Text;
+                    string carpetab = ((Label)dtgnominas.Rows[id].FindControl("lblb")).Text;
+                    String path;
 
-                    Session["ruta"] = "pagosnOPERADORAMX/" + sindicato + ".pdf";
-                    String path = Server.MapPath("../pagosnOPERADORAMX") + "\\" + sindicato + ".pdf";
-                    String path2 = "../pagosnOPERADORAMX/" + sindicato + ".pdf";
+                    if (carpetab != "")
+                    {
+                        Session["ruta"] = "pagosnOPERADORAMX/"+carpetab+"/" + sindicato + ".pdf";
+                        path = Server.MapPath("../pagosnOPERADORAMX/")+carpetab + "\\" + sindicato + ".pdf";
+                        String path2 = "../pagosnOPERADORAMX/"+carpetab+"/" + sindicato + ".pdf";
+                    }
+                    else
+                    {
 
+                        Session["ruta"] = "pagosnOPERADORAMX/" + sindicato + ".pdf";
+                        path = Server.MapPath("../pagosnOPERADORAMX") + "\\" + sindicato + ".pdf";
+                        String path2 = "../pagosnOPERADORAMX/" + sindicato + ".pdf";
+                      
+                    }
                     Session["archivo"] = sindicato + ".pdf";
-
                     System.IO.FileInfo toDownload = new System.IO.FileInfo(path);
                     if (toDownload.Exists)
                     {
@@ -133,11 +148,12 @@ namespace kioskotem.nomina
             dsEmpresas.Tables[0].Columns.Add("Fecha");
             dsEmpresas.Tables[0].Columns.Add("importe");
             dsEmpresas.Tables[0].Columns.Add("importesin");
+            dsEmpresas.Tables[0].Columns.Add("nombrenomina");
 
             DateTime inicio = DateTime.Parse(dtpinicio.SelectedDate.ToString());
             DateTime final = DateTime.Parse(dtpfinal.SelectedDate.ToString());
             string inicial = inicio.Year.ToString() + inicio.Month.ToString("00") + inicio.Day.ToString("00");
-            string fin = final.Year.ToString() + final.Month.ToString("00") + final.Day.ToString("00");
+            string fin = final.Year.ToString() + final.Month.ToString("00") + final.Day.ToString("00"); 
 
 
 
@@ -152,9 +168,11 @@ namespace kioskotem.nomina
                         dsEmpresas.Tables[0].Rows.Add(dtEmpresas.Rows[x]["iIdPago"],
                                                         dtEmpresas.Rows[x]["dpagosa"],
                                                         dtEmpresas.Rows[x]["dpagoasi"],
-                                                        DateTime.Parse(dtEmpresas.Rows[x]["fecha"].ToString()).ToShortDateString(),
+                                                        DateTime.Parse(dtEmpresas.Rows[x]["Fecha"].ToString().Remove(18)),
+                                                        //DateTime.Parse(dtEmpresas.Rows[x]["fecha"].ToString()).ToShortDateString(),
                                                         dtEmpresas.Rows[x]["importesa"],
-                                                        dtEmpresas.Rows[x]["importeasi"]);
+                                                        dtEmpresas.Rows[x]["importeasi"],
+                                                        dtEmpresas.Rows[x]["nombrenomina"]);
 
 
 

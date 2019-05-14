@@ -77,7 +77,11 @@
                                         <asp:Label Width="80px" style=" text-align:right;" ID="lblimportesin" runat="server" Text='<%# Bind("importesin") %>'  Visible="true" ></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
+                              <asp:TemplateField >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblb" runat="server" Text='<%# Bind("nombrenomina") %>' Visible="false" ></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 
                                 <asp:CommandField ButtonType="Image" HeaderText="SA" 
                                     SelectImageUrl="../imagenes/pdf2.png" 
